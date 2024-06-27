@@ -203,6 +203,7 @@ menu() {
 	echo -e " ${GREEN}1 -${PLAIN} WCF IPv4 EIP ${YELLOW}(default)${PLAIN}"
 	echo -e " ${GREEN}2 -${PLAIN} WCF IPv6 EIP"
         echo -e " ${GREEN}3 -${PLAIN} Free V2ray Config" 
+	echo -e " ${GREEN}4 -${PLAIN} Free WGconfig source"
 	echo " -------------"
 	echo -e " ${GREEN}0 -${PLAIN} Exit wSWC"
         echo ""
@@ -219,7 +220,9 @@ menu() {
         echo "Importing link and saving to $config_file..."
         wget -q -O "$config_file" "$link"
         ;;
-        *) IPV_VERSION="4" ;;  
+        *) IPV_VERSION="4" ;; 
+
+        4) echo -e " ${GREEN}https://t.me/s/WireVpnGuard${PLAIN}"
     
         esac
 }
