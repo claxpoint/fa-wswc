@@ -219,7 +219,30 @@ menu() {
         wget -qO- "$link" | cat
         ;;
         *) IPV_VERSION="4" ;;  # Default: IPv4 (from previous example)
+        link="https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/file.txt"
+        echo "Importing link and saving to $config_file..."
+        wget -q -O "$config_file" "$link"
+        ;;
+        # ... existing cases ...
+    
         esac
 }
 
 menu
+
+menu() {
+  # ... existing code ...
+
+  # Define configuration file path
+  config_file="config.txt"
+  
+  case $menuInput in
+    # ... existing cases ...
+    3) 
+      link="https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/file.txt"
+      echo "Importing link and saving to $config_file..."
+      wget -q -O "$config_file" "$link"
+      ;;
+    # ... existing cases ...
+  esac
+}
