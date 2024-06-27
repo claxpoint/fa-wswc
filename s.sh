@@ -202,7 +202,7 @@ menu() {
 	echo ""
 	echo -e " ${GREEN}1 -${PLAIN} WCF IPv4 EIP ${YELLOW}(default)${PLAIN}"
 	echo -e " ${GREEN}2 -${PLAIN} WCF IPv6 EIP"
- 
+        echo -e " ${GREEN}3 -${PLAIN} Free V2ray Config" 
 	echo " -------------"
 	echo -e " ${GREEN}0 -${PLAIN} Exit wSWC"
         echo ""
@@ -211,18 +211,16 @@ menu() {
         2) endpoint6 ;;
         1) endpoint4 ;;
         0) exit 1 ;;
-        # New option:
+        # New option for importing link and saving content:
         3) 
         # Define the link with "rawgithubcontents"
-        link="https://raw.githubusercontent.com/ALIILAPRO/v2rayNG-Config/main/server.txt"
-        echo "Importing link..."
-        wget -qO- "$link" | cat
-        ;;
-        *) IPV_VERSION="4" ;;  # Default: IPv4 (from previous example)
+        link="https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/file.txt"
+        # Define configuration file path
+        config_file="config.txt"
         echo "Importing link and saving to $config_file..."
         wget -q -O "$config_file" "$link"
         ;;
-        # ... existing cases ...
+        *) IPV_VERSION="4" ;;  # Default: IPv4 (from previous example)
     
         esac
 }
