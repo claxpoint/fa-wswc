@@ -196,7 +196,7 @@ menu() {
 	clear
 	echo "########################################################"
 	echo -e "#     ${RED}Netbaan${PLAIN}   #"
-	echo -e "# ${GREEN}author${PLAIN}: Misaka                                       #"
+	echo -e "# ${GREEN}author${PLAIN}: KIS                                       #"
 	echo -e "# ${GREEN}blog${PLAIN}: https://blog.misaka.rest                       #"
 	echo -e "# ${GREEN}GitHub project${PLAIN}: https://github.com/Misaka-blog       #"
 	echo -e "# ${GREEN}GitLab project${PLAIN}: https://gitlab.com/Misaka-blog       #"
