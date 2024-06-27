@@ -83,11 +83,11 @@ endpointyx() {
 # Function to display the menu and handle user input
 menu() {
   clear
-  echo "--------------------------------------------------------"
-  echo -e "#    <span class="math-inline">\{BLUE\}NetBaan: Warp.Scanner.Wireguard.Config - U3-Warpel</span>{PLAIN}  #"
+  echo "########################################################"
+  echo -e "#    <span class="math-inline">\{RED\}WARP Endpoint IP one\-click optimization script</span>{PLAIN}  #"
   echo -e "#  <span class="math-inline">\{GREEN\}Author</span>{PLAIN}: Misaka"
   echo -e "#  Visit https://blog.misaka.rest for more info."
-  echo "--------------------------------------------------------"
+  echo "########################################################"
   echo ""
   echo -e " <span class="math-inline">\{GREEN\}1\.</span>{PLAIN} Optimize for WARP IPv4 Endpoint IP (default)"
   echo -e " <span class="math-inline">\{GREEN\}2\.</span>{PLAIN} Optimize for WARP IPv6 Endpoint IP (not yet implemented)"
