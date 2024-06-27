@@ -221,9 +221,16 @@ menu() {
         wget -q -O "$config_file" "$link"
         ;;
         *) IPV_VERSION="4" ;; 
-	4)
-          echo -e " ${GREEN}https://t.me/s/WireVpnGuard${PLAIN}"
-         ;;
+        4)
+        # Display message for Free WGconfigs source
+        echo "${GREEN}Please note that this script does not provide pre-configured WireGuard configs. 
+        Visit the following resources to find free WGconfigs:"
+        echo "  - https://www.wireguard.com/"
+        echo "  - https://opentunnel.net/wireguard/"
+        ;;
+        *) IPV_VERSION="4" ;;
+  esac
+}
         esac
 }
 
