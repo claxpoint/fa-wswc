@@ -59,7 +59,7 @@ endpoint6() {
 # Function to handle the optimization process
 endpointyx() {
   # Download the preferred tool (replace with the actual download command)
-  wget https://raw.githubusercontent.com/claxpoint/fa-wswc/main/u3-Warpel/u3-wswc-$(archAffix) -O warp
+  wget https://raw.githubusercontent.com/claxpoint/fa-wswc/main/u3-Warpel/u3-wswc$(archAffix) -O warp
 
   # Increase thread limit for the optimization tool
   ulimit -n 102400
