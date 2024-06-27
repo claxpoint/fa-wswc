@@ -21,16 +21,16 @@ yellow() {
   echo -e "\033[33m\033[01m$1\033[0m"
 }
 
-# Function to select client CPU architecture
 archAffix() {
-  case "<span class="math-inline">\(uname \-m\)" in
-i386 \| i686\) echo '386' ;;
-x86\_64 \| amd64\) echo 'amd64' ;;
-armv8 \| arm64 \| aarch64\) echo 'arm64' ;;
-s390x\) echo 's390x' ;;
-\*\) red "Unsupported CPU architecture\!" && exit 1 ;;
-esac
-\}
+  case "$(uname -m)" in
+    (i386 | i686) ) echo '386' ;;
+    x86_64 | amd64) echo 'amd64' ;;
+    armv8 | arm64 | aarch64) echo 'arm64' ;;
+    s390x) echo 's390x' ;;
+    *) red "Unsupported CPU architecture!" && exit 1 ;;
+  esac
+}
+
 \# Function to optimize WARP Endpoint IP \(generic\)
 endpointyx\(\) \{
 \# Download the preferred tool \(thanks to anonymous contributor\)
