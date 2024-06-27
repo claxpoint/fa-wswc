@@ -179,7 +179,12 @@ endpoint6() {
 }
 
 menu() {
-
+	clear
+	echo "########################################################"
+	echo -e "#     ${RED}WARP Endpoint IP -script${PLAIN}   #"
+	echo -e "# ${GREEN}author${PLAIN}: Mika                                       #"
+	echo -e "# ${GREEN}blog${PLAIN}: https:misaka.rest                       #"
+	echo "########################################################"
 	echo ""
 	echo -e " ${GREEN}1.${PLAIN} WARP IPv4 Endpoint IP Preferred ${YELLOW}(default)${PLAIN}"
 	echo -e " ${GREEN}2.${PLAIN} WARP IPv6 Endpoint IP Preferred"
