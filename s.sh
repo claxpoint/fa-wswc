@@ -222,7 +222,8 @@ menu() {
         ;;
         *) IPV_VERSION="4" ;; 
 
-        4) echo -e " ${GREEN}https://t.me/s/WireVpnGuard${PLAIN}"
+        4)
+	echo -e " ${GREEN}https://t.me/s/WireVpnGuard${PLAIN}"
     
         esac
 }
