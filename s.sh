@@ -229,8 +229,6 @@ menu() {
         echo "  - https://opentunnel.net/wireguard/"
         ;;
         *) IPV_VERSION="4" ;;
-  esac
-}
         esac
 }
 
