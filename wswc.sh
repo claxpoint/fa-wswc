@@ -1,94 +1,222 @@
 #!/bin/bash
 
-# Define color codes for better readability
-RED='\033[31m'
-GREEN='\033[32m'
-YELLOW='\033[33m'
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
 PLAIN='\033[0m'
 
-# Function to print messages in red color
 red() {
-  echo -e "$RED\033[01m$1\033[0m"
+	echo -e "\033[31m\033[01m$1\033[0m"
 }
 
-# Function to print messages in green color
 green() {
-  echo -e "$GREEN\033[01m$1\033[0m"
+	echo -e "\033[32m\033[01m$1\033[0m"
 }
 
-# Function to print messages in yellow color
 yellow() {
-  echo -e "$YELLOW\033[01m$1\033[0m"
+	echo -e "\033[33m\033[01m$1\033[0m"
 }
 
-# Function to determine CPU architecture
-archAffix() {
-  case "$(uname -m)" in
-    i386 | i686) echo '386' ;;
-    x86_64 | amd64) echo 'amd64' ;;
-    armv8 | arm64 | aarch64) echo 'arm64' ;;
-    s390x) echo 's390x' ;;
-    *) red "Unsupported CPU architecture!"; exit 1 ;;
-  esac
+# Select client CPU architecture
+archAffix(){
+    case "$(uname -m)" in
+        i386 | i686 ) echo '386' ;;
+        x86_64 | amd64 ) echo 'amd64' ;;
+        armv8 | arm64 | aarch64 ) echo 'arm64' ;;
+        s390x ) echo 's390x' ;;
+        * ) red "Unsupported CPU architecture!" && exit 1 ;;
+    esac
 }
 
-# Function to optimize WARP endpoint for IPv4
-endpoint4() {
-  local iplist=100
-
-  # Generate a list of candidate IPv4 addresses in known WARP ranges
-  for ((i = 0; i < iplist; i++)); do
-    temp[<span class="math-inline">i\]\=\("</span>(echo 162.159.{192,193,195,204}.$((<span class="math-inline">RANDOM % 256\)\)\)"
-"</span>(echo 188.114.{96,97,98,99}.$((<span class="math-inline">RANDOM % 256\)\)\)"\)
-done
-\# Remove duplicates and ensure we have the desired number of addresses
-temp\=\(</span>(echo "${temp[@]}" | tr ' ' '\n' | sort -u | head -n "<span class="math-inline">iplist"\)\)
-\# Save candidate IPs to a temporary file
-echo "</span>{temp[@]}" > ip.txt
-
-  # Call the optimization function (can be replaced with your preferred tool)
-  endpointyx
-}
-
-# Function to optimize WARP endpoint for IPv6 (replace with your implementation)
-endpoint6() {
-  red "IPv6 optimization not implemented yet."
-  exit 1
-}
-
-# Function to handle the optimization process
 endpointyx() {
-  # Download the preferred tool (replace with the actual download command)
-  wget https://raw.githubusercontent.com/TheyCallMeSecond/WARP-Endpoint-IP/main/files/warp-linux-$(archAffix) -O warp
+	# Download the preferred tool software, thanks to an anonymous netizen for sharing the preferred tool
+	wget https://raw.githubusercontent.com/TheyCallMeSecond/WARP-Endpoint-IP/main/files/warp-linux-$(archAffix) -O warp
 
-  # Increase thread limit for the optimization tool
-  ulimit -n 102400
+	# Cancel the thread limit that comes with Linux to generate the preferred Endpoint IP
+	ulimit -n 102400
 
-  # Make the tool executable and run it silently
-  chmod +x warp && ./warp >/dev/null 2>&1
+	# Start the WARP Endpoint IP optimization tool
+	chmod +x warp && ./warp >/dev/null 2>&1
 
-  # Display the top results from the optimization tool
-  green "Top 10 optimized Endpoint IPs (saved to result.csv):"
-  cat result.csv | awk -F ',' '$3!="timeout ms"' | sort -t ',' -nk2 -nk3 | uniq | head -11 | awk -F ',' '{print "Endpoint "$1" Packet loss rate "$2" Average delay "$3}'
+	# Display the top ten preferred Endpoint IPs and how to use them
+	green "The current optimal Endpoint IP results are as follows and have been saved to result.csv:"
+	cat result.csv | awk -F, '$3!="timeout ms" {print} ' | sort -t, -nk2 -nk3 | uniq | head -11 | awk -F, '{print "Endpoint "$1" Packet loss rate "$2" Average delay "$3}'
+	echo ""
+	yellow "How to use it:"
+	yellow "1. Replace the default Endpoint IP of the WireGuard node: engage.cloudflareclient.com:2408 with the optimal Endpoint IP of the local network"
 
-  # Instructions on how to use the optimized IP
-  echo ""
-  yellow "Instructions:"
-  yellow "1. Replace the default WireGuard endpoint IP (engage.cloudflareclient.com:2408) with the chosen optimal IP from the local network."
-
-  # Clean up temporary files
-  rm -f warp ip.txt
+	# Delete the WARP Endpoint IP preferred tool and its accompanying files
+	rm -f warp ip.txt
 }
 
-# Function to display the menu and handle user input
+endpoint4() {
+
+	# Generate a list of preferred WARP IPv4 Endpoint IP segments
+	n=0
+	iplist=100
+	while true; do
+		temp[$n]=$(echo 162.159.192.$(($RANDOM % 256)))
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+		temp[$n]=$(echo 162.159.193.$(($RANDOM % 256)))
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+		temp[$n]=$(echo 162.159.195.$(($RANDOM % 256)))
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+		temp[$n]=$(echo 162.159.204.$(($RANDOM % 256)))
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+		temp[$n]=$(echo 188.114.96.$(($RANDOM % 256)))
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+		temp[$n]=$(echo 188.114.97.$(($RANDOM % 256)))
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+		temp[$n]=$(echo 188.114.98.$(($RANDOM % 256)))
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+		temp[$n]=$(echo 188.114.99.$(($RANDOM % 256)))
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+	done
+	while true; do
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo 162.159.192.$(($RANDOM % 256)))
+			n=$(($n + 1))
+		fi
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo 162.159.193.$(($RANDOM % 256)))
+			n=$(($n + 1))
+		fi
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo 162.159.195.$(($RANDOM % 256)))
+			n=$(($n + 1))
+		fi
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo 162.159.204.$(($RANDOM % 256)))
+			n=$(($n + 1))
+		fi
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo 188.114.96.$(($RANDOM % 256)))
+			n=$(($n + 1))
+		fi
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo 188.114.97.$(($RANDOM % 256)))
+			n=$(($n + 1))
+		fi
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo 188.114.98.$(($RANDOM % 256)))
+			n=$(($n + 1))
+		fi
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo 188.114.99.$(($RANDOM % 256)))
+			n=$(($n + 1))
+		fi
+	done
+
+	# Put the generated IP segment list into ip.txt and wait for program optimization
+	echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u >ip.txt
+
+	# Start the preferred program
+	endpointyx
+}
+
+endpoint6() {
+	# Generate a list of preferred WARP IPv6 Endpoint IP segments
+	n=0
+	iplist=100
+	while true; do
+		temp[$n]=$(echo [2606:4700:d0::$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2)))])
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+		temp[$n]=$(echo [2606:4700:d1::$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2)))])
+		n=$(($n + 1))
+		if [ $n -ge $iplist ]; then
+			break
+		fi
+	done
+	while true; do
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo [2606:4700:d0::$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2)))])
+			n=$(($n + 1))
+		fi
+		if [ $(echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u | wc -l) -ge $iplist ]; then
+			break
+		else
+			temp[$n]=$(echo [2606:4700:d1::$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2))):$(printf '%x\n' $(($RANDOM * 2 + $RANDOM % 2)))])
+			n=$(($n + 1))
+		fi
+	done
+
+	# Put the generated IP segment list into ip.txt and wait for program optimization
+	echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u >ip.txt
+
+	# Start the preferred program
+	endpointyx
+}
+
 menu() {
-  clear
-  echo "########################################################"
-  echo -e "#    <span class="math-inline">\{RED\}WARP Endpoint IP one\-click optimization script</span>{PLAIN}  #"
-  echo -e "#  <span class="math-inline">\{GREEN\}Author</span>{PLAIN}: Misaka"
-  echo -e "#  Visit https://blog.misaka.rest for more info."
-  echo "########################################################"
-  echo ""
-  echo -e " <span class="math-inline">\{GREEN\}1\.</span>{PLAIN} Optimize for WARP IPv4 Endpoint IP (default)"
-  echo -e " <span class="math-inline">\{GREEN\}2\.</span>{PLAIN} Optimize for WARP IPv6 Endpoint IP (not yet implemented)"
-  echo "
+	clear
+	echo "########################################################"
+	echo -e "#     ${RED}WARP Endpoint IP one-click optimization script${PLAIN}   #"
+	echo -e "# ${GREEN}author${PLAIN}: Misaka                                       #"
+	echo -e "# ${GREEN}blog${PLAIN}: https://blog.misaka.rest                       #"
+	echo -e "# ${GREEN}GitHub project${PLAIN}: https://github.com/Misaka-blog       #"
+	echo -e "# ${GREEN}GitLab project${PLAIN}: https://gitlab.com/Misaka-blog       #"
+	echo -e "# ${GREEN}Telegram channel${PLAIN}: https://t.me/misakanocchannel      #"
+	echo -e "# ${GREEN}Telegram group${PLAIN}: https://t.me/misakanoc               #"
+	echo -e "# ${GREEN}YouTube channel${PLAIN}: https://www.youtube.com/@misaka-blog#"
+	echo -e "# ${GREEN}TRANSLATED BY: ${PLAIN}: @theTCS_                            #"
+	echo "########################################################"
+	echo ""
+	echo -e " ${GREEN}1.${PLAIN} WARP IPv4 Endpoint IP Preferred ${YELLOW}(default)${PLAIN}"
+	echo -e " ${GREEN}2.${PLAIN} WARP IPv6 Endpoint IP Preferred"
+	echo " -------------"
+	echo -e " ${GREEN}0.${PLAIN} Exit script"
+	echo ""
+	read -rp "Please enter options [0-2]: " menuInput
+	case $menuInput in
+	2) endpoint6 ;;
+	0) exit 1 ;;
+	*) endpoint4 ;;
+	esac
+}
+
+menu
