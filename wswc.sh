@@ -195,7 +195,7 @@ endpoint6() {
 menu() {
 	clear
 	echo "########################################################"
-	echo -e "#     ${RED}kos nanam${PLAIN}   #"
+	echo -e "#     ${RED}kom${PLAIN}   #"
 	echo -e "# ${GREEN}author${PLAIN}: Msss                                       #"
 	echo -e "# ${GREEN}sog${PLAIN}: https://blogssrest                       #"
 	echo -e "# ${GREEN}Gisub project${PLAIN}: https://github.com/Misaka-blog       #"
