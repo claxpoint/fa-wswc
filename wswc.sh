@@ -194,29 +194,32 @@ endpoint6() {
 
 menu() {
 	clear
-	echo "########################################################"
-	echo -e "#     ${RED}kom${PLAIN}   #"
-	echo -e "# ${GREEN}author${PLAIN}: Msss                                       #"
-	echo -e "# ${GREEN}sog${PLAIN}: https://blogssrest                       #"
-	echo -e "# ${GREEN}Gisub project${PLAIN}: https://github.com/Misaka-blog       #"
-	echo -e "# ${GREEN}GitLsb project${PLAIN}: https://gs.com/Misaka-blog       #"
-	echo -e "# ${GREEN}Tesram channel${PLAIN}: https://t.me/misakanocchannel      #"
-	echo -e "# ${GREEN}Telegrs group${PLAIN}: https://t.me/misakanoc               #"
-	echo -e "# ${GREEN}YouTshannel${PLAIN}: https://www.youtube.com/@misaka-blog#"
-	echo -e "# ${GREEN}TRANSLATED BY: ${PLAIN}: @theTCS_                            #"
-	echo "########################################################"
+	echo "--------------------------------------------------------"
+	echo -e "     ${BLUE}NetBaan: WarpScannerWireguardConfig${PLAIN}"
+	echo -e " ${GREEN}Creator and booster${PLAIN}: Claxpoint"
+	echo -e " ${GREEN}Github${PLAIN}: https://github.com/claxpoint/fa-wswc"
+	echo "--------------------------------------------------------"
 	echo ""
-	echo -e " ${GREEN}1.${PLAIN} WARP IPv4 Endpoint IP Preferred ${YELLOW}(default)${PLAIN}"
-	echo -e " ${GREEN}2.${PLAIN} WARP IPv6 Endpoint IP Preferred"
+	echo -e " ${GREEN}1 -${PLAIN} WCF IPv4 EIP ${YELLOW}(default)${PLAIN}"
+	echo -e " ${GREEN}2 -${PLAIN} WCF IPv6 EIP"
+ 
 	echo " -------------"
-	echo -e " ${GREEN}0.${PLAIN} Exit script"
-	echo ""
-	read -rp "Please enter options [0-2]: " menuInput
-	case $menuInput in
-	2) endpoint6 ;;
-	0) exit 1 ;;
-	*) endpoint4 ;;
-	esac
+	echo -e " ${GREEN}0 -${PLAIN} Exit wSWC"
+        echo ""
+        read -rp "Please enter options [0-2]: " menuInput
+        case $menuInput in
+        2) endpoint6 ;;
+        1) endpoint4 ;;
+        0) exit 1 ;;
+        # New option:
+        3) 
+        # Define the link with "rawgithubcontents"
+        link="https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/file.txt"
+        echo "Importing link..."
+        wget -qO- "$link" | cat
+        ;;
+        *) IPV_VERSION="4" ;;  # Default: IPv4 (from previous example)
+        esac
 }
 
 menu
