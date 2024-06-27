@@ -181,9 +181,15 @@ endpoint6() {
 menu() {
 	clear
 	echo "########################################################"
-	echo -e "#     ${RED}WARP Endpoint IP -script${PLAIN}   #"
-	echo -e "# ${GREEN}author${PLAIN}: Mika                                       #"
-	echo -e "# ${GREEN}blog${PLAIN}: https:misaka.rest                       #"
+	echo -e "#     ${RED}WARP Endpoint IP one-click optimization script${PLAIN}   #"
+	echo -e "# ${GREEN}author${PLAIN}: Misaka                                       #"
+	echo -e "# ${GREEN}blog${PLAIN}: https://blog.misaka.rest                       #"
+	echo -e "# ${GREEN}GitHub project${PLAIN}: https://github.com/Misaka-blog       #"
+	echo -e "# ${GREEN}GitLab project${PLAIN}: https://gitlab.com/Misaka-blog       #"
+	echo -e "# ${GREEN}Telegram channel${PLAIN}: https://t.me/misakanocchannel      #"
+	echo -e "# ${GREEN}Telegram group${PLAIN}: https://t.me/misakanoc               #"
+	echo -e "# ${GREEN}YouTube channel${PLAIN}: https://www.youtube.com/@misaka-blog#"
+	echo -e "# ${GREEN}TRANSLATED BY: ${PLAIN}: @theTCS_                            #"
 	echo "########################################################"
 	echo ""
 	echo -e " ${GREEN}1.${PLAIN} WARP IPv4 Endpoint IP Preferred ${YELLOW}(default)${PLAIN}"
