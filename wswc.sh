@@ -1,69 +1,94 @@
 #!/bin/bash
 
-# رنگ ها
-GREEN='\033[1;32m'
-RED='\033[1;31m'
-YELLOW='\033[1;33m'
-RESET='\033[0m'
+# Define color codes for better readability
+RED='\033[31m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+PLAIN='\033[0m'
 
-# URL لیست Endpoint IP های Warp
-ENDPOINT_IP_URL="https://raw.githubusercontent.com/Ptechgithub/warp/master/warp_endpoints.txt"
+# Function to print messages in red color
+red() {
+  echo -e "$RED\033[01m$1\033[0m"
+}
 
-# مسیر ذخیره سازی کانفیگ ها
-CONFIG_DIR="$HOME/warp-configs"
+# Function to print messages in green color
+green() {
+  echo -e "$GREEN\033[01m$1\033[0m"
+}
 
-# بررسی مجوز sudo
-if [ $(whoami) != "root" ]; then
-  echo -e "${RED}برای اجرای این اسکریپت به مجوز sudo نیاز دارید.${RESET}"
+# Function to print messages in yellow color
+yellow() {
+  echo -e "$YELLOW\033[01m$1\033[0m"
+}
+
+# Function to determine CPU architecture
+archAffix() {
+  case "$(uname -m)" in
+    i386 | i686) echo '386' ;;
+    x86_64 | amd64) echo 'amd64' ;;
+    armv8 | arm64 | aarch64) echo 'arm64' ;;
+    s390x) echo 's390x' ;;
+    *) red "Unsupported CPU architecture!"; exit 1 ;;
+  esac
+}
+
+# Function to optimize WARP endpoint for IPv4
+endpoint4() {
+  local iplist=100
+
+  # Generate a list of candidate IPv4 addresses in known WARP ranges
+  for ((i = 0; i < iplist; i++)); do
+    temp[<span class="math-inline">i\]\=\("</span>(echo 162.159.{192,193,195,204}.$((<span class="math-inline">RANDOM % 256\)\)\)"
+"</span>(echo 188.114.{96,97,98,99}.$((<span class="math-inline">RANDOM % 256\)\)\)"\)
+done
+\# Remove duplicates and ensure we have the desired number of addresses
+temp\=\(</span>(echo "${temp[@]}" | tr ' ' '\n' | sort -u | head -n "<span class="math-inline">iplist"\)\)
+\# Save candidate IPs to a temporary file
+echo "</span>{temp[@]}" > ip.txt
+
+  # Call the optimization function (can be replaced with your preferred tool)
+  endpointyx
+}
+
+# Function to optimize WARP endpoint for IPv6 (replace with your implementation)
+endpoint6() {
+  red "IPv6 optimization not implemented yet."
   exit 1
-fi
+}
 
-# ایجاد پوشه ذخیره سازی کانفیگ ها (در صورت وجود)
-mkdir -p $CONFIG_DIR
+# Function to handle the optimization process
+endpointyx() {
+  # Download the preferred tool (replace with the actual download command)
+  wget https://raw.githubusercontent.com/TheyCallMeSecond/WARP-Endpoint-IP/main/files/warp-linux-$(archAffix) -O warp
 
-# دانلود لیست Endpoint IP ها
-echo -e "${YELLOW}در حال دانلود لیست Endpoint IP ها...${RESET}"
-wget -qO- $ENDPOINT_IP_URL | tee $CONFIG_DIR/warp_endpoints.txt
+  # Increase thread limit for the optimization tool
+  ulimit -n 102400
 
-# اسکن Endpoint IP ها
-echo -e "${YELLOW}در حال اسکن Endpoint IP ها...${RESET}"
-while read -r endpoint_ip; do
-  # پینگ Endpoint IP
-  if ping -c 1 $endpoint_ip > /dev/null; then
-    echo -e "${GREEN}$endpoint_ip: فعال${RESET}"
+  # Make the tool executable and run it silently
+  chmod +x warp && ./warp >/dev/null 2>&1
 
-    # دریافت کانفیگ WireGuard برای V2ray
-    v2ray_config_url="https://api.cfwarp.com/v1/reg/$endpoint_ip?platform=linux_x64"
-    echo -e "${YELLOW}در حال دریافت کانفیگ WireGuard برای V2ray...${RESET}"
-    curl -s $v2ray_config_url | jq . | tee $CONFIG_DIR/$endpoint_ip-v2ray.json
+  # Display the top results from the optimization tool
+  green "Top 10 optimized Endpoint IPs (saved to result.csv):"
+  cat result.csv | awk -F ',' '$3!="timeout ms"' | sort -t ',' -nk2 -nk3 | uniq | head -11 | awk -F ',' '{print "Endpoint "$1" Packet loss rate "$2" Average delay "$3}'
 
-    # دریافت کانفیگ WireGuard برای Nekobox
-    nekobox_config_url="https://api.cfwarp.com/v1/reg/$endpoint_ip?platform=android"
-    echo -e "${YELLOW}در حال دریافت کانفیگ WireGuard برای Nekobox...${RESET}"
-    curl -s $nekobox_config_url | jq .data | base64 -w 0 | tee $CONFIG_DIR/$endpoint_ip-nekobox.conf
+  # Instructions on how to use the optimized IP
+  echo ""
+  yellow "Instructions:"
+  yellow "1. Replace the default WireGuard endpoint IP (engage.cloudflareclient.com:2408) with the chosen optimal IP from the local network."
 
-    # دریافت کانفیگ WireGuard (روش 1)
-    echo -e "${YELLOW}در حال دریافت کانفیگ WireGuard (روش 1)...${RESET}"
-    wg genkey | tee private_key
-    public_key=$(wg pubkey < private_key)
-    wg genkey | tee peer_key
-    peer_public_key=$(wg pubkey < peer_key)
-    wireguard_config_1="$CONFIG_DIR/$endpoint_ip-wireguard1.conf"
-    echo "[Interface]" > $wireguard_config_1
-    echo "PrivateKey = $(cat private_key)" >> $wireguard_config_1
-    echo "[Peer]" >> $wireguard_config_1
-    echo "PublicKey = $peer_public_key" >> $wireguard_config_1
-    echo "Endpoint = $endpoint_ip:51820" >> $wireguard_config_1
-    echo "AllowedIPs = 0.0.0.0/0" >> $wireguard_config_1
+  # Clean up temporary files
+  rm -f warp ip.txt
+}
 
-    # دریافت کانفیگ WireGuard (روش 2)
-    wireguard_config_url="https://api.cfwarp.com/v1/reg/$endpoint_ip?platform=linux_iptables"
-    echo -e "${YELLOW}در حال دریافت کانفیگ WireGuard (روش 2)...${RESET}"
-    curl -s $wireguard_config_url | tee $CONFIG_DIR/$endpoint_ip-wireguard2.conf
-
-  else
-    echo -e "${RED}$endpoint_ip: غیرفعال${RESET}"
-  fi
-done < $CONFIG_DIR/warp_endpoints.txt
-
-echo -e "${GREEN}اسکن با موفقیت به پایان رسید! کانفیگ ها در $CONFIG_DIR ذخیره شده اند.${RESET}"
+# Function to display the menu and handle user input
+menu() {
+  clear
+  echo "########################################################"
+  echo -e "#    <span class="math-inline">\{RED\}WARP Endpoint IP one\-click optimization script</span>{PLAIN}  #"
+  echo -e "#  <span class="math-inline">\{GREEN\}Author</span>{PLAIN}: Misaka"
+  echo -e "#  Visit https://blog.misaka.rest for more info."
+  echo "########################################################"
+  echo ""
+  echo -e " <span class="math-inline">\{GREEN\}1\.</span>{PLAIN} Optimize for WARP IPv4 Endpoint IP (default)"
+  echo -e " <span class="math-inline">\{GREEN\}2\.</span>{PLAIN} Optimize for WARP IPv6 Endpoint IP (not yet implemented)"
+  echo "
