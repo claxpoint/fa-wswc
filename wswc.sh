@@ -17,20 +17,6 @@ yellow() {
 	echo -e "\033[33m\033[01m$1\033[0m"
 }
 
-# Select client CPU architecture
-archAffix(){
-    case "$(uname -m)" in
-        i386 | i686 ) echo '386' ;;
-        x86_64 | amd64 ) echo 'amd64' ;;
-        armv8 | arm64 | aarch64 ) echo 'arm64' ;;
-        s390x ) echo 's390x' ;;
-        * ) red "Unsupported CPU architecture!" && exit 1 ;;
-    esac
-}
-
-endpointyx() {
-	# Download the preferred tool software, thanks to an anonymous netizen for sharing the preferred tool
-	wget https://raw.githubusercontent.com/claxpoint/fa-wswc/main/u3-Warpel/u3-wswc-$(archAffix) -O warp
 
 	# Cancel the thread limit that comes with Linux to generate the preferred Endpoint IP
 	ulimit -n 102400
