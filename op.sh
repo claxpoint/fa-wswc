@@ -207,7 +207,7 @@ menu() {
 	echo " -------------"
 	echo -e " ${GREEN}0 -${PLAIN} Exit WSWC"
         echo ""
-        read -rp "Please enter options [0-4]: " menuInput
+        read -rp "Please enter options [0-3]: " menuInput
         case $menuInput in
         2) endpoint6 ;;
         1) endpoint4 ;;
