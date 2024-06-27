@@ -179,18 +179,7 @@ endpoint6() {
 }
 
 menu() {
-	clear
-	echo "########################################################"
-	echo -e "#     ${RED}Netbaan${PLAIN}   #"
-	echo -e "# ${GREEN}author${PLAIN}: KIS                                       #"
-	echo -e "# ${GREEN}blog${PLAIN}: https://est                       #"
-	echo -e "# ${GREEN}GitHub project${PLAIN}: htthub.com/Misaka-blog       #"
-	echo -e "# ${GREEN}GitLab project${PLAIN}: https://gitlab.com/Misaka-blog       #"
-	echo -e "# ${GREEN}Telegram channel${PLAIN}: https:///misakanocchannel      #"
-	echo -e "# ${GREEN}Telegram group${PLAIN}: https://t.me/misakanoc               #"
-	echo -e "# ${GREEN}YouTube channel${PLAIN}: httww.youtube.com/@misaka-blog#"
-	echo -e "# ${GREEN}TRANSLATED BY: ${PLAIN}: @theTCS_                            #"
-	echo "########################################################"
+
 	echo ""
 	echo -e " ${GREEN}1.${PLAIN} WARP IPv4 Endpoint IP Preferred ${YELLOW}(default)${PLAIN}"
 	echo -e " ${GREEN}2.${PLAIN} WARP IPv6 Endpoint IP Preferred"
