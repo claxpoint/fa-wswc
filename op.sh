@@ -205,7 +205,7 @@ menu() {
         echo -e " ${GREEN}3 -${PLAIN} Free V2ray Config" 
 	echo -e " ${GREEN}4 -${PLAIN} Free WGconfig source"
 	echo " -------------"
-	echo -e " ${GREEN}0 -${PLAIN} Exit wSWC"
+	echo -e " ${GREEN}0 -${PLAIN} Exit WSWC"
         echo ""
         read -rp "Please enter options [0-4]: " menuInput
         case $menuInput in
@@ -217,16 +217,13 @@ menu() {
         link="https://raw.githubusercontent.com/ALIILAPRO/v2rayNG-Config/main/server.txt"
         # Define configuration file path
         config_file="wswc-v2.txt"
-        echo "Importing link and saving to $config_file..."
+        echo "Importing configs and saving to $config_file..."
         wget -q -O "$config_file" "$link"
         ;;
         *) IPV_VERSION="4" ;; 
-        4)
-        # Display message for Free WGconfigs source
-        echo "${GREEN}Please note that this script does not provide pre-configured WireGuard configs. 
-        Visit the following resources to find free WGconfigs:"
-        echo "  - https://www.wireguard.com/"
-        echo "  - https://opentunnel.net/wireguard/"
+        4) 
+        # Claxpoint SOURCEwg
+        echo "Importing configs and saving to $config_file..."
         ;;
         *) IPV_VERSION="4" ;;
         esac
