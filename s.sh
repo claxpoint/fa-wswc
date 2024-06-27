@@ -211,16 +211,15 @@ menu() {
         2) endpoint6 ;;
         1) endpoint4 ;;
         0) exit 1 ;;
-        # New option for importing link and saving content:
         3) 
-        # Define the link with "rawgithubcontents"
-        link="https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/file.txt"
+        # CLaxpoint= import ALIILAPRO configs to wswc-v2.txt
+        link="https://raw.githubusercontent.com/ALIILAPRO/v2rayNG-Config/main/server.txt"
         # Define configuration file path
-        config_file="config.txt"
+        config_file="wswc-v2.txt"
         echo "Importing link and saving to $config_file..."
         wget -q -O "$config_file" "$link"
         ;;
-        *) IPV_VERSION="4" ;;  # Default: IPv4 (from previous example)
+        *) IPV_VERSION="4" ;;  
     
         esac
 }
