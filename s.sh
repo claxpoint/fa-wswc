@@ -186,7 +186,7 @@ endpoint6() {
 	done
 
 	# Put the generated IP segment list into ip.txt and wait for program optimization
-	echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u >wswc-ip.txt
+	echo ${temp[@]} | sed -e 's/ /\n/g' | sort -u >wswc-eip.txt
 
 	# Start the preferred program
 	endpointyx
@@ -207,7 +207,7 @@ menu() {
 	echo " -------------"
 	echo -e " ${GREEN}0 -${PLAIN} Exit wSWC"
         echo ""
-        read -rp "Please enter options [0-2]: " menuInput
+        read -rp "Please enter options [0-4]: " menuInput
         case $menuInput in
         2) endpoint6 ;;
         1) endpoint4 ;;
@@ -221,8 +221,7 @@ menu() {
         wget -q -O "$config_file" "$link"
         ;;
         *) IPV_VERSION="4" ;; 
-
-        4)
+	4)
 	echo -e " ${GREEN}https://t.me/s/WireVpnGuard${PLAIN}"
     
         esac
