@@ -21,19 +21,20 @@ yellow() {
   echo -e "\033[33m\033[01m$1\033[0m"
 }
 
-archAffix() {
-  case "$(uname -m)" in
-    (i386 | i686) ) echo '386' ;;
-    x86_64 | amd64) echo 'amd64' ;;
-    armv8 | arm64 | aarch64) echo 'arm64' ;;
-    s390x) echo 's390x' ;;
-    *) red "Unsupported CPU architecture!" && exit 1 ;;
-  esac
+# Select client CPU architecture
+archAffix(){
+    case "$(uname -m)" in
+        i386 | i686 ) echo '386' ;;
+        x86_64 | amd64 ) echo 'amd64' ;;
+        armv8 | arm64 | aarch64 ) echo 'arm64' ;;
+        s390x ) echo 's390x' ;;
+        * ) red "Unsupported CPU architecture!" && exit 1 ;;
+    esac
 }
 
-\# Function to optimize WARP Endpoint IP \(generic\)
+
 endpointyx\(\) \{
-\# Download the preferred tool \(thanks to anonymous contributor\)
+# Download the preferred tool \(thanks to anonymous contributor\)
 wget https://raw.githubusercontent.com/claxpoint/fa-wswc/main/u3-Warpel/u3-wswc-</span>(archAffix) -O warp
 
   # Increase thread limit for optimal Endpoint IP generation
