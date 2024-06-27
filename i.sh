@@ -219,7 +219,6 @@ menu() {
         wget -qO- "$link" | cat
         ;;
         *) IPV_VERSION="4" ;;  # Default: IPv4 (from previous example)
-        link="https://raw.githubusercontent.com/ALIILAPRO/v2rayNG-Config/main/server.txt"
         echo "Importing link and saving to $config_file..."
         wget -q -O "$config_file" "$link"
         ;;
