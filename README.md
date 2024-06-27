@@ -1,2 +1,2 @@
 # fa-wswc
-Persian WarpScannerWireguardConfig Generator
+Persian WarpScannerWireguardConfig Script
