@@ -214,7 +214,7 @@ menu() {
         # New option:
         3) 
         # Define the link with "rawgithubcontents"
-        link="https://raw.githubusercontent.com/USERNAME/REPOSITORY/BRANCH/file.txt"
+        link="https://raw.githubusercontent.com/ALIILAPRO/v2rayNG-Config/main/server.txt"
         echo "Importing link..."
         wget -qO- "$link" | cat
         ;;
