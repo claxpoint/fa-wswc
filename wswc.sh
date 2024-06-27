@@ -23,26 +23,25 @@ yellow() {
 
 # Function to determine CPU architecture
 archAffix() {
-  case "$(uname -m)" in
-    i386 | i686) echo '386' ;;
-    x86_64 | amd64) echo 'amd64' ;;
-    armv8 | arm64 | aarch64) echo 'arm64' ;;
-    s390x) echo 's390x' ;;
-    *) red "Unsupported CPU architecture!"; exit 1 ;;
-  esac
-}
+  case "<span class="math-inline">\(uname \-m\)" in
+i386 \| i686\) echo '386' ;;
+x86\_64 \| amd64\) echo 'amd64' ;;
+armv8 \| arm64 \| aarch64\) echo 'arm64' ;;
+s390x\) echo 's390x' ;;
+\*\) red "Unsupported CPU architecture\!"; exit 1 ;;
+esac
+\}
+\# Function to optimize WARP endpoint for IPv4
+endpoint4\(\) \{
+local iplist\=100
+\# Generate a list of candidate IPv4 addresses \(improved approach\)
+for \(\(i \= 0; i < iplist; i\+\+\)\); do
+temp\[i\]\="</span>(echo 162.159.{192,193,195,204}.$RANDOM)"
+    temp[i]="<span class="math-inline">temp\[i\]"\."</span>((RANDOM % 256))"  # Add another random segment for each IP
+  done
 
-# Function to optimize WARP endpoint for IPv4
-endpoint4() {
-  local iplist=100
-
-  # Generate a list of candidate IPv4 addresses in known WARP ranges
-  for ((i = 0; i < iplist; i++)); do
-    temp[<span class="math-inline">i\]\=\("</span>(echo 162.159.{192,193,195,204}.$((<span class="math-inline">RANDOM % 256\)\)\)"
-"</span>(echo 188.114.{96,97,98,99}.$((<span class="math-inline">RANDOM % 256\)\)\)"\)
-done
-\# Remove duplicates and ensure we have the desired number of addresses
-temp\=\(</span>(echo "${temp[@]}" | tr ' ' '\n' | sort -u | head -n "<span class="math-inline">iplist"\)\)
+  # Remove duplicates and ensure we have the desired number of addresses
+  temp=(<span class="math-inline">\(echo "</span>{temp[@]}" | tr ' ' '\n' | sort -u | head -n "<span class="math-inline">iplist"\)\)
 \# Save candidate IPs to a temporary file
 echo "</span>{temp[@]}" > ip.txt
 
@@ -84,11 +83,3 @@ endpointyx() {
 menu() {
   clear
   echo "########################################################"
-  echo -e "#    <span class="math-inline">\{RED\}WARP Endpoint IP one\-click optimization script</span>{PLAIN}  #"
-  echo -e "#  <span class="math-inline">\{GREEN\}Author</span>{PLAIN}: Misaka"
-  echo -e "#  Visit https://blog.misaka.rest for more info."
-  echo "########################################################"
-  echo ""
-  echo -e " <span class="math-inline">\{GREEN\}1\.</span>{PLAIN} Optimize for WARP IPv4 Endpoint IP (default)"
-  echo -e " <span class="math-inline">\{GREEN\}2\.</span>{PLAIN} Optimize for WARP IPv6 Endpoint IP (not yet implemented)"
-  echo "
