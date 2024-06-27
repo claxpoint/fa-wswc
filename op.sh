@@ -203,7 +203,7 @@ menu() {
 	echo -e " ${GREEN}1 -${PLAIN} WCF IPv4 EIP ${YELLOW}(default)${PLAIN}"
 	echo -e " ${GREEN}2 -${PLAIN} WCF IPv6 EIP"
         echo -e " ${GREEN}3 -${PLAIN} Free V2ray Config" 
-	echo -e " ${GREEN}4 -${PLAIN} Free WGconfig source"
+	echo -e " ${GREEN}NOTE -${PLAIN} Free WGconfig source: https://t.me/s/WireVpnGuard"
 	echo " -------------"
 	echo -e " ${GREEN}0 -${PLAIN} Exit WSWC"
         echo ""
@@ -219,11 +219,6 @@ menu() {
         config_file="wswc-v2.txt"
         echo "Importing configs and saving to $config_file..."
         wget -q -O "$config_file" "$link"
-        ;;
-        *) IPV_VERSION="4" ;; 
-        4) 
-        # Claxpoint SOURCEwg
-        echo "Importing configs and saving to $config_file..."
         ;;
         *) IPV_VERSION="4" ;;
         esac
